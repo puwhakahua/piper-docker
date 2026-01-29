@@ -18,3 +18,5 @@ RUN /opt/piper/bin/pip install --no-cache-dir -r requirements.txt
 RUN /opt/piper/bin/pip install --no-cache-dir git+https://github.com/rhasspy/piper.git@9b1c6397698b1da11ad6cca2b318026b628328ec#egg=piper_train&subdirectory=src/python
 
 COPY bash.bashrc /etc/bash.bashrc
+
+ENV PATH=/opt/piper/bin:$PATH

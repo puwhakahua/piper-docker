@@ -2,4 +2,7 @@ test/
 cache/
 data/
 output/
+tmp/
+*~
+*.bak
 *.zip

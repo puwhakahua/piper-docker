@@ -2,7 +2,7 @@
 
 Uses [Piper](https://github.com/rhasspy/piper). 
 
-Uses PyTorch 1.13.1 and Piper as of 2025-03-04 (9b1c6397698b1da11ad6cca2b318026b628328ec).
+Uses PyTorch 1.13.1 and Piper 1.2.0 (36fec21382b9687114b81a529d0d028b35905cd1).
 
 ## Quick start
 
@@ -19,7 +19,7 @@ Uses PyTorch 1.13.1 and Piper as of 2025-03-04 (9b1c6397698b1da11ad6cca2b318026b
   ```bash
   docker run --shm-size 8G --net=host \
     -v /local/dir:/container/dir \
-    -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:2025-03-04_cuda11.6
+    -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.2.0_cuda
   ```
 
 ### Docker hub
@@ -29,12 +29,12 @@ Uses PyTorch 1.13.1 and Piper as of 2025-03-04 (9b1c6397698b1da11ad6cca2b318026b
   ```bash
   docker run --shm-size 8G --net=host \
     -v /local/dir:/container/dir \
-    -it waikatodatamining/piper:2025-03-04_cuda11.6
+    -it waikatodatamining/piper:1.2.0_cuda
   ```
 
 ### Build local image
 
-* Build the image from Docker file (from within /path_to/piper/2025-03-04_cuda11.6)
+* Build the image from Docker file (from within /path_to/piper/1.2.0_cuda)
 
   ```bash
   docker build -t piper .
@@ -53,7 +53,7 @@ Uses PyTorch 1.13.1 and Piper as of 2025-03-04 (9b1c6397698b1da11ad6cca2b318026b
 ### Build
 
 ```bash
-docker build -t piper:2025-03-04_cuda11.6 .
+docker build -t piper:1.2.0_cuda .
 ```
 
 ### Inhouse registry  
@@ -62,14 +62,14 @@ docker build -t piper:2025-03-04_cuda11.6 .
 
   ```bash
   docker tag \
-    piper:2025-03-04_cuda11.6 \
-    public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:2025-03-04_cuda11.6
+    piper:1.2.0_cuda \
+    public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.2.0_cuda
   ```
   
 * Push
 
   ```bash
-  docker push public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:2025-03-04_cuda11.6
+  docker push public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.2.0_cuda
   ```
   If error "no basic auth credentials" occurs, then run (enter username/password when prompted):
   
@@ -83,14 +83,14 @@ docker build -t piper:2025-03-04_cuda11.6 .
 
   ```bash
   docker tag \
-    piper:2025-03-04_cuda11.6 \
-    waikatodatamining/piper:2025-03-04_cuda11.6
+    piper:1.2.0_cuda \
+    waikatodatamining/piper:1.2.0_cuda
   ```
   
 * Push
 
   ```bash
-  docker push waikatodatamining/piper:2025-03-04_cuda11.6
+  docker push waikatodatamining/piper:1.2.0_cuda
   ```
   If error "no basic auth credentials" occurs, then run (enter username/password when prompted):
   
@@ -103,7 +103,7 @@ docker build -t piper:2025-03-04_cuda11.6 .
 
 ```bash
 docker run --rm --pull=always \
-  -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:2025-03-04_cuda11.6 \
+  -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.2.0_cuda \
   pip freeze > requirements.txt
 ```
 
@@ -120,18 +120,19 @@ docker run -u $(id -u):$(id -g) -e USER=$USER ...
 
 ## Caching
 
-piper will download pretrained models and cache them locally. To avoid having
-to download them constantly, you can the cache directory to the host machine:
+piper uses numba and the compiled files need to be cached in a directory with
+write access. Therefore it is recommended to create a `tmp` directory
+and map it into the container:
 
-* when running the container as current user
-
-  ```bash
-  -v /some/where/cache:/.piper \
-  ```
+```bash
+-v `pwd`/tmp:/tmp \
+```
 
 
 ## Scripts
 
 The following additional scripts are available:
 
-* TODO 
+* `piper_preprocess` - for preprocessing WAV files and annotations (calls `python -m piper_train.preprocess`)
+* `piper_train` - for training a model (calls `python -m piper_train`)
+

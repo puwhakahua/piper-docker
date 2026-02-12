@@ -3,4 +3,5 @@ Docker images for [Piper](https://github.com/rhasspy/piper) text to speech syste
 
 Available versions:
 
-* [2025-03-04 (CUDA 11.1)](2025-03-04_cuda11.6)
+* [1.2.0 (CUDA)](1.2.0_cuda)
+

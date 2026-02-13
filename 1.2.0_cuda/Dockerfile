@@ -11,9 +11,15 @@ RUN python3 -m venv /opt/piper && \
     /opt/piper/bin/pip install --no-cache-dir \
         piper-tts==1.2.0 \
         piper-phonemize==1.1.0 \
+        librosa==0.11.0 \
+        numpy==1.22.3 \
+        six==1.17.0 && \
+    /opt/piper/bin/pip install --no-cache-dir --force-reinstall \
         torch==1.13.1 \
         torchaudio==0.13.1 \
-        librosa==0.11.0
+        pytorch-lightning==1.7.7 \
+        torchmetrics==0.11.4 \
+        numpy==1.22.3
 RUN git clone https://github.com/rhasspy/piper.git piper-src && \
     cd piper-src && \
     git reset --hard 36fec21382b9687114b81a529d0d028b35905cd1

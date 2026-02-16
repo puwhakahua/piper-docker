@@ -136,3 +136,10 @@ The following additional scripts are available:
 * `piper_preprocess` - for preprocessing WAV files and annotations (calls `python -m piper_train.preprocess`)
 * `piper_train` - for training a model (calls `python -m piper_train`)
 
+
+## Troubleshooting
+
+* `OSError: [Errno 16] Device or resource busy: '.nfs...f'`
+
+  Instead of running the model off a NFS network share, use a local disk
+

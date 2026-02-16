@@ -1,5 +1,5 @@
 # piper
-Docker images for [Piper](https://github.com/rhasspy/piper) text to speech system (TTS).
+Docker images for the Piper text to speech system (TTS).
 
 Available versions:
 

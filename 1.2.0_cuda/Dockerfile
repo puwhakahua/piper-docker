@@ -13,6 +13,7 @@ RUN python3 -m venv /opt/piper && \
         piper-phonemize==1.1.0 \
         librosa==0.11.0 \
         numpy==1.22.3 \
+        cython==0.29.37 \
         six==1.17.0 && \
     /opt/piper/bin/pip install --no-cache-dir --force-reinstall \
         torch==1.13.1 \
@@ -20,9 +21,14 @@ RUN python3 -m venv /opt/piper && \
         pytorch-lightning==1.7.7 \
         torchmetrics==0.11.4 \
         numpy==1.22.3
+
 RUN git clone https://github.com/rhasspy/piper.git piper-src && \
     cd piper-src && \
     git reset --hard 36fec21382b9687114b81a529d0d028b35905cd1
+
+RUN cd /opt/piper-src/src/python && \
+    . /opt/piper/bin/activate && \
+    ./build_monotonic_align.sh
 
 COPY bash.bashrc /etc/bash.bashrc
 COPY piper_* /usr/local/bin/

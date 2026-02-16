@@ -136,7 +136,7 @@ The following additional scripts are available:
 * `piper_preprocess` - for preprocessing WAV files and annotations (calls `python -m piper_train.preprocess`)
 * `piper_train` - for training a model (calls `python -m piper_train`)
 * `piper_export_onnx` - for exporting a checkpoint to ONNX (calls `python -m piper_train.export_onnx`)
-* `piper` - geenrates audio output from text (calls `python -m piper`)
+* `piper` - generates audio output from text (calls `python -m piper`)
 
 
 ## Troubleshooting

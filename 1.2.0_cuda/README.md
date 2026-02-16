@@ -142,5 +142,5 @@ The following additional scripts are available:
 
 * `OSError: [Errno 16] Device or resource busy: '.nfs...f'`
 
-  Instead of running the model off a NFS network share, use a local disk
+  Instead of training the model off a NFS network share, use a local disk
 

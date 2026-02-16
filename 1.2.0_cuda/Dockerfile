@@ -31,6 +31,7 @@ RUN cd /opt/piper-src/src/python && \
     ./build_monotonic_align.sh
 
 COPY bash.bashrc /etc/bash.bashrc
+COPY piper /usr/local/bin/
 COPY piper_* /usr/local/bin/
 
 ENV PYTHONPATH=/opt/piper-src/src/python

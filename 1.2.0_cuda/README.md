@@ -121,7 +121,7 @@ docker run -u $(id -u):$(id -g) -e USER=$USER ...
 ## Caching
 
 piper uses numba and the compiled files need to be cached in a directory with
-write access. Therefore it is recommended to create a `tmp` directory
+write access. Therefore, it is recommended to create a `tmp` directory
 and map it into the container:
 
 ```bash

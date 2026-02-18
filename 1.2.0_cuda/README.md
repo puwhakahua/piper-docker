@@ -121,7 +121,7 @@ docker run -u $(id -u):$(id -g) -e USER=$USER ...
 ## Caching
 
 piper uses numba and the compiled files need to be cached in a directory with
-write access. Therefore, it is recommended to create a `tmp` directory
+write access. Therefore it is recommended to create a `tmp` directory
 and map it into the container:
 
 ```bash
@@ -136,7 +136,9 @@ The following additional scripts are available:
 * `piper_preprocess` - for preprocessing WAV files and annotations (calls `python -m piper_train.preprocess`)
 * `piper_train` - for training a model (calls `python -m piper_train`)
 * `piper_export_onnx` - for exporting a checkpoint to ONNX (calls `python -m piper_train.export_onnx`)
-* `piper` - generates audio output from text (calls `python -m piper`)
+* `piper` - for applying a model t (calls `python -m piper`)
+* `piper_tts_poll` - for batch processing text files and generating WAV files (calls `/opt/piper-extra/tts_poll.py`)
+* `piper_tts_redis` - uses Redis for receiving text and sending back generated WAV data (calls `/opt/piper-extra/tts_redis.py`)
 
 
 ## Troubleshooting

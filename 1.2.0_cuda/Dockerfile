@@ -20,7 +20,11 @@ RUN python3 -m venv /opt/piper && \
         torchaudio==0.13.1 \
         pytorch-lightning==1.7.7 \
         torchmetrics==0.11.4 \
-        numpy==1.22.3
+        numpy==1.22.3 && \
+    /opt/piper/bin/pip install --no-cache-dir \
+        "simple_file_poller>=0.0.12" \
+        redis \
+        "redis-docker-harness==0.0.4"
 
 RUN git clone https://github.com/rhasspy/piper.git piper-src && \
     cd piper-src && \
@@ -33,7 +37,8 @@ RUN cd /opt/piper-src/src/python && \
 COPY bash.bashrc /etc/bash.bashrc
 COPY piper /usr/local/bin/
 COPY piper_* /usr/local/bin/
+COPY tts_*.py /opt/piper-extra/
 
-ENV PYTHONPATH=/opt/piper-src/src/python
+ENV PYTHONPATH=/opt/piper-src/src/python:/opt/piper-extra
 ENV NUMBA_CACHE_DIR=/tmp
 

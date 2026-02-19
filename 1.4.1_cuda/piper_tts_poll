@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/opt/piper/bin/python /opt/piper-extra/tts_poll.py "$@"
+

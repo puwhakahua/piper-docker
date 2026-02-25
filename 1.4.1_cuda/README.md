@@ -19,7 +19,7 @@ Uses PyTorch 2.x and Piper 1.4.1 (077c783a28a8eb31c269bf2fc79e1f834d265809).
   ```bash
   docker run --shm-size 8G --net=host \
     -v /local/dir:/container/dir \
-    -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.4.1_cuda
+    -it harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.4.1_cuda
   ```
 
 ### Docker hub
@@ -63,13 +63,13 @@ docker build -t piper:1.4.1_cuda .
   ```bash
   docker tag \
     piper:1.4.1_cuda \
-    public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.4.1_cuda
+    harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.4.1_cuda
   ```
   
 * Push
 
   ```bash
-  docker push public-push.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.4.1_cuda
+  docker push harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.4.1_cuda
   ```
   If error "no basic auth credentials" occurs, then run (enter username/password when prompted):
   
@@ -103,7 +103,7 @@ docker build -t piper:1.4.1_cuda .
 
 ```bash
 docker run --rm --pull=always \
-  -it public.aml-repo.cms.waikato.ac.nz:443/puwhakahua/piper:1.4.1_cuda \
+  -it harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.4.1_cuda \
   pip freeze > requirements.txt
 ```
 

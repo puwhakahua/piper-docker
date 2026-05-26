@@ -103,7 +103,7 @@ docker build -t piper:1.2.0_cuda .
 
 ```bash
 docker run --rm --pull=always \
-  -it harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.2.0_cuda \
+  -it waikatodatamining/piper:1.2.0_cuda \
   pip freeze > requirements.txt
 ```
 

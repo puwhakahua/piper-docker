@@ -380,14 +380,17 @@ class VitsDataModule(L.LightningDataModule):
     #def setup(self, stage: str) -> None:
     #    assert self.piper_config is not None
     def setup(self, stage: Optional[str] = None):
-        # DDP fix: If piper_config is None (common in spawned worker ranks), load it from disk
         if self.piper_config is None:
-            config_path = self.dataset_dir / "config.json"
-            if config_path.exists():
-                with open(config_path, "r", encoding="utf-8") as config_file:
-                    self.piper_config = PiperConfig.from_dict(json.load(config_file))
+            # Fallback path lookup from datasets if initialized
+            data_dir = getattr(self, "data_dir", None) or getattr(self.train_dataset, "dataset_dir", None)
 
-        assert self.piper_config is not None, f"piper_config is missing and could not be loaded from {self.dataset_dir}/con
+            if data_dir:
+                config_path = Path(data_dir) / "config.json"
+                if config_path.exists():
+                    with open(config_path, "r", encoding="utf-8") as f:
+                        self.piper_config = PiperConfig.from_dict(json.load(f))
+
+        assert self.piper_config is not None, "piper_config was None and could not be re-loaded on rank worker"
 
         all_utts: list[CachedUtterance] = []
         speaker_id_map = self.piper_config.speaker_id_map

@@ -5,6 +5,5 @@ Available versions:
 
 * [1.7.0 (CUDA)](1.7.0_cuda)
 * [1.6.1 (CUDA)](1.6.1_cuda)
-* [1.4.1-2 (CUDA)](1.4.1-2_cuda)
 * [1.4.1 (CUDA)](1.4.1_cuda)
 * [1.2.0 (CUDA)](1.2.0_cuda)

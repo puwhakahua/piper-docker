@@ -1,4 +1,0 @@
-#!/bin/bash
-
-/opt/piper/bin/python -m piper.train "$@"
-

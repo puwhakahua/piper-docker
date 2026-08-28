@@ -403,8 +403,22 @@ class VitsDataModule(L.LightningDataModule):
 
         _LOGGER.info("Processed %s utterance(s)", num_utterances)
 
-    def setup(self, stage: str) -> None:
-        assert self.piper_config is not None
+    def setup(self, stage: str | None = None) -> None:
+        if self.piper_config is None:
+            # Extract dataset_dir from dataset_args dict or data_dir attribute
+            dataset_dir = None
+            if hasattr(self, "dataset_args") and isinstance(self.dataset_args, dict):
+                dataset_dir = self.dataset_args.get("dataset_dir")
+            if not dataset_dir and hasattr(self, "data_dir"):
+                dataset_dir = self.data_dir
+
+            if dataset_dir:
+                config_path = Path(dataset_dir) / "config.json"
+                if config_path.exists():
+                    with open(config_path, "r", encoding="utf-8") as f:
+                        self.piper_config = PiperConfig.from_dict(json.load(f))
+
+        assert self.piper_config is not None, "piper_config is None on rank worker and config.json could not be loaded."
 
         all_utts: list[CachedUtterance] = []
         speaker_id_map = self.piper_config.speaker_id_map

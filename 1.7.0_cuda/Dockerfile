@@ -10,7 +10,7 @@ WORKDIR /opt
 RUN python3 -m venv --system-site-packages /opt/piper
 RUN git clone https://github.com/OHF-voice/piper1-gpl.git piper-src && \
     cd /opt/piper-src && \
-    git reset --hard 077c783a28a8eb31c269bf2fc79e1f834d265809 && \
+    git reset --hard 7b8e8f7197a480047677715f00d3d78903b55a2a && \
     cd /opt/piper-src && \
     . /opt/piper/bin/activate && \
     pip install --no-cache-dir ".[train,dev]" && \

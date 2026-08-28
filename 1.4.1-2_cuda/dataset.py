@@ -48,6 +48,7 @@ class DatasetType(str, Enum):
 class VitsDataModule(L.LightningDataModule):
     def __init__(
         self,
+        dataset_dir: Union[str, Path],
         csv_path: Union[str, Path],
         cache_dir: Union[str, Path],
         espeak_voice: str,
@@ -75,6 +76,7 @@ class VitsDataModule(L.LightningDataModule):
     ) -> None:
         super().__init__()
 
+        self.dataset_dir = Path(dataset_dir)
         self.csv_path = Path(csv_path)
         self.cache_dir = Path(cache_dir)
         self.espeak_voice = espeak_voice
@@ -380,17 +382,14 @@ class VitsDataModule(L.LightningDataModule):
     #def setup(self, stage: str) -> None:
     #    assert self.piper_config is not None
     def setup(self, stage: Optional[str] = None):
+        # DDP fix for Rank 1+: Reload piper_config if PyTorch Lightning didn't pass it over IPC
         if self.piper_config is None:
-            # Fallback path lookup from datasets if initialized
-            data_dir = getattr(self, "data_dir", None) or getattr(self.train_dataset, "dataset_dir", None)
+            config_path = self.dataset_dir / "config.json"
+            if config_path.exists():
+                with open(config_path, "r", encoding="utf-8") as f:
+                    self.piper_config = PiperConfig.from_dict(json.load(f))
 
-            if data_dir:
-                config_path = Path(data_dir) / "config.json"
-                if config_path.exists():
-                    with open(config_path, "r", encoding="utf-8") as f:
-                        self.piper_config = PiperConfig.from_dict(json.load(f))
-
-        assert self.piper_config is not None, "piper_config was None and could not be re-loaded on rank worker"
+        assert self.piper_config is not None, f"piper_config is missing and could not be loaded from {self.dataset_dir}/config.json"
 
         all_utts: list[CachedUtterance] = []
         speaker_id_map = self.piper_config.speaker_id_map

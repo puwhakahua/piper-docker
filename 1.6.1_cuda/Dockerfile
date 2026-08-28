@@ -26,7 +26,6 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY piper /usr/local/bin/
 COPY piper_* /usr/local/bin/
 COPY tts_*.py /opt/piper-extra/
-COPY dataset.py /opt/piper-src/src/piper/train/vits/
 
 ENV PYTHONPATH=/opt/piper-src/src:/opt/piper-extra
 ENV NUMBA_CACHE_DIR=/tmp

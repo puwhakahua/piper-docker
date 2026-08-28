@@ -102,9 +102,11 @@ docker build -t piper:1.7.0_cuda .
 ### Requirements
 
 ```bash
-docker run --rm --pull=always \
+docker run --rm --pull=always -u $(id -u):$(id -g) -e USER=$USER \
+  -v `pwd`:/workspace \
+  --entrypoint /opt/piper/bin/pip \
   -it harbor.cms.waikato.ac.nz/public/puwhakahua/piper:1.7.0_cuda \
-  pip freeze > requirements.txt
+  --no-cache-dir freeze > requirements.txt
 ```
 
 

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/opt/piper/bin/python -m piper "$@"
+
